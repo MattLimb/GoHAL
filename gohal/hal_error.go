@@ -1,24 +1,20 @@
 package gohal
 
-import "fmt"
+import "errors"
 
-type ErrHalConfused string
-
-func (e ErrHalConfused) Error() string {
-	return  "I'm sorry Dave, I'm afraid I can't do that."
+type HalError struct {
+	MustEnd bool
+	Err     error
 }
 
-func (e ErrHalConfused) DetailedError() string {
-	return fmt.Sprintf("I'm sorry Dave, I'm afraid I can't do that. (ERROR - %s)", e)
+func (e HalError) Error() string {
+	return e.Err.Error()
 }
 
-// MUST END Errors
-type ErrHalReallyConfused string
-
-func (e ErrHalReallyConfused) Error() string {
-	return  "I'm sorry Dave, I'm afraid I can't do that."
+func NewHalError(errString string) HalError {
+	return HalError{MustEnd: false, Err: errors.New(errString)}
 }
 
-func (e ErrHalReallyConfused) DetailedError() string {
-	return fmt.Sprintf("I'm sorry Dave, I'm afraid I can't do that. (ERROR - %s)", e)
+func NewCriticalHalError(errString string) HalError {
+	return HalError{MustEnd: true, Err: errors.New(errString)}
 }

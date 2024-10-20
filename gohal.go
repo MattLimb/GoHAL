@@ -81,18 +81,16 @@ func main() {
 		"Stop, Dave.",
 	}
 
-    fmt.Printf("GoHAL %s\n", Version)
+	display := gohal.HalDisplay{LogLevel: 1}
 
-	ast := gohal.BuildAst(inputFile)
-	missed := 0
+	fmt.Printf("GoHAL %s\n", Version)
 
-	for idx, item := range ast {
-		if item.Instruction != ""{
-			fmt.Printf("[%d] %+v\n", idx, item)
-		} else {
-			missed++
-		}
+	ast, err := gohal.BuildAst(inputFile)
+
+	if err != nil {
+		display.DisplayError(err)
 	}
 
-	fmt.Printf("Missed Lines: %d\n", missed)
+	gohal.InterpretAst(ast, display)
+
 }
