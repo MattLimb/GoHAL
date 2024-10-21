@@ -1,27 +1,28 @@
+// Package gohal/cli - Creates and handles the CLI input.
 package gohal
 
 import (
     "flag"
     "fmt"
-    "os"
 )
 
-type CliArgs struct {
-	FileName string
-	DebugMode bool
-	ShowVersion bool
+// RunOptions is a struct which exposes all options availiable in the CLI.
+type RunOptions struct {
+	fileName    string
+	debugMode   bool
+	showVersion bool
 }
 
-
-func parseCli() (CliArgs, *HalError) {
+// parseCli is the function to setup and parse through the CLI.
+func parseCli() (RunOptions, *HalError) {
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, "Usage: gohal [flags] [filename]\n\nArguments:\n  filename  The script file you want HAL to execute.\n\nFlags:")
+		fmt.Println("Usage: gohal [flags] [filename]\n\nArguments:\n  filename  The script file you want HAL to execute.\n\nFlags:")
 		flag.PrintDefaults()
 	}
 
 	var versionFlag bool
-	flag.BoolVar(&versionFlag, "version", false, "Display the current version and exit.")
-	flag.BoolVar(&versionFlag, "v", false, "Display the current version and exit.")
+	flag.BoolVar(&versionFlag, "version", false, "display the current version and exit.")
+	flag.BoolVar(&versionFlag, "v", false, "display the current version and exit.")
 
 	var debugFlag bool
 	flag.BoolVar(&debugFlag, "debug", false, "Enable debug mode.")
@@ -38,8 +39,8 @@ func parseCli() (CliArgs, *HalError) {
 	case 1:
 		filename = args[0]
 	default:
-		return CliArgs{}, NewCriticalHalError("too many files to process. Only 1 is expected.", 0)
+		return RunOptions{}, newCriticalHalError("too many files to process. Only 1 is expected.", 0)
 	}
 
-	return CliArgs{FileName: filename, DebugMode: debugFlag, ShowVersion: versionFlag}, nil
+	return RunOptions{fileName: filename, debugMode: debugFlag, showVersion: versionFlag}, nil
 }
