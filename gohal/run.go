@@ -34,7 +34,7 @@ func RunHal(runOpts RunOptions) {
 		os.Exit(1)
 	}
 
-	interpretAst(ast, display)
+	interpretAst(ast, map[int]int32{}, display)
 }
 
 // RunHalBinary is the public interface to run HAL. This parses the CLI and then runs hal.

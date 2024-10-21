@@ -45,6 +45,10 @@ func buildAst(fileLines []string) (HalAst, *HalError) {
 	var lineNumber int
 	programLength := len(fileLines)
 
+	if programLength < 2 {
+		return []HalNode{}, newCriticalHalError("program is too short. It must be at least 2 lines long.", lineNumber)
+	}
+
 	ast := make([]HalNode, programLength)
 	loopStartIndexes := map[int]int{}
 	currentLoopId := 0

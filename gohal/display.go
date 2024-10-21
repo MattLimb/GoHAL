@@ -7,6 +7,13 @@ import (
     "os"
 )
 
+// HalDisplayer is an interface for Displays HAL supports. Mostly used for Testing
+type HalDisplayer interface {
+    displayError(err *HalError)
+    displayCharInt(charInt int32)
+}
+
+
 // HalDisplay is a simple struct which governs how HAL will output data and errors.
 type HalDisplay struct {
 	debugMode bool

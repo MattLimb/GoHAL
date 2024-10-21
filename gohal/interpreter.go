@@ -1,17 +1,13 @@
 // Package gohal/interpreter - Core interpreter loop.
 package gohal
 
-import (
-    "fmt"
-    "os"
-)
+import "fmt"
 
 // interpretAst is the main HAL loop. It runs every instruction.
-func interpretAst(ast HalAst, display HalDisplay) {
+func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
     var instruction HalNode
 
     instructionLen := len(ast)
-    tape := map[int]int32{}
 
     cellPointer := 0
     var cellValue int32 = 0
@@ -20,9 +16,10 @@ func interpretAst(ast HalAst, display HalDisplay) {
     currentIndex := 0
 
     tasksCompleted := 0
+    endProgram := false
 
     for {
-        if currentIndex == instructionLen {
+        if currentIndex == instructionLen || endProgram {
             break
         }
         instruction = ast[currentIndex]
@@ -65,21 +62,21 @@ func interpretAst(ast HalAst, display HalDisplay) {
 
             inputRune := []rune(inputString)[0]
 
-            cellValue = int32(inputRune)
+            cellValue = inputRune
 
         // Looping
         case loopStart:
             if cellValue == 0 {
                 currentIndex = instruction.loopEnd
+            } else {
+                loopDepth++
             }
-
-            loopDepth++
         case loopEnd:
 			if cellValue != 0 {
 				currentIndex = instruction.loopStart
-			}
-
-			loopDepth--
+			} else {
+                loopDepth--
+            }
         // Loop Breaks
         case loopBreakAll:
             for {
@@ -116,7 +113,7 @@ func interpretAst(ast HalAst, display HalDisplay) {
                 }
             }
         case programEnd:
-            os.Exit(0)
+            endProgram = true
         }
 
         // Write the current value to the tape

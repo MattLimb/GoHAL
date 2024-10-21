@@ -20,7 +20,11 @@ func parseFile(fileName string) ([]string, *HalError) {
     scanner := bufio.NewScanner(file)
     // optionally, resize scanner's capacity for lines over 64K, see next example
     for scanner.Scan() {
-        output = append(output, scanner.Text())
+		text := scanner.Text()
+
+		if text != "" {
+			output = append(output, text)
+		}
     }
 
     if err := scanner.Err(); err != nil {
