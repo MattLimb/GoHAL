@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-const Version string = "v0.1.0"
+const Version string = "v1.0.0"
 
 func RunHal() {
 	cliArgs, err := parseCli()
