@@ -57,6 +57,7 @@ func buildAst(fileLines []string) (HalAst, *HalError) {
 
 	for idx, instruction := range fileLines {
 		lineNumber = idx + 1
+
 		switch {
 		// The Program MUST have a specified start phrase.
 		case idx == 0:
