@@ -1,6 +1,7 @@
 package gohal
 
 import (
+	"fmt"
     "regexp"
 	"strings"
 )
@@ -31,7 +32,8 @@ type HalNode struct {
 
 type HalAst []HalNode
 
-func BuildAst(fileLines []string) (HalAst, *HalError) {
+func buildAst(fileLines []string) (HalAst, *HalError) {
+	var lineNumber int
 	programLength := len(fileLines)
 
 	ast := make([]HalNode, programLength)
@@ -41,15 +43,17 @@ func BuildAst(fileLines []string) (HalAst, *HalError) {
 	startprogramRegex := regexp.MustCompile(`Good afternoon, gentlemen. I am a (.*) computer\. I became operational at (.*) on (.*).`)
 
 	for idx, instruction := range fileLines {
+		lineNumber = idx + 1
 		switch {
 		case idx == 0:
 			if startprogramRegex.MatchString(instruction) {
 				ast[idx] = HalNode{instruction: programStart, n: 0, loopStart: 0, loopEnd: 0}
 			} else {
-				return []HalNode{}, NewCriticalHalError("program must start with 'Good afternoon, gentlemen.' command", idx+1)
+				return []HalNode{}, newCriticalHalError("program must start with 'Good afternoon, gentlemen.' command", lineNumber)
 			}
 		case idx == (programLength-1) && instruction != "Stop, Dave.":
-			return []HalNode{}, NewCriticalHalError("program must end with 'Stop, Dave.' command", idx+1)
+			return []HalNode{}, newCriticalHalError("program must end with 'Stop, Dave.' command", lineNumber)
+
 		case instruction == "Stop, Dave.":
 			ast[idx] = HalNode{instruction: programEnd, n: 0, loopStart: 0, loopEnd: 0}
 		case strings.Contains(instruction, "Hal?"):
@@ -63,7 +67,7 @@ func BuildAst(fileLines []string) (HalAst, *HalError) {
 			ast[idx] = HalNode{instruction: loopStart, n: 0, loopStart: 0, loopEnd: 0}
 		case instruction == "Dave, this conversation can serve no purpose anymore. Goodbye.":
 			if currentLoopId == 0 {
-				return []HalNode{}, NewCriticalHalError("program cannot end a loop without starting one", idx+1)
+				return []HalNode{}, newCriticalHalError("program cannot end a loop without starting one", lineNumber)
 			}
 
 			loopStartIdx := loopStartIndexes[currentLoopId]
@@ -84,11 +88,13 @@ func BuildAst(fileLines []string) (HalAst, *HalError) {
 			ast[idx] = HalNode{instruction: userInput, n: 0, loopStart: 0, loopEnd: 0}
 		case instruction == "Close the pod bay doors, HAL.":
 			ast[idx] = HalNode{instruction: displayChar, n: 0, loopStart: 0, loopEnd: 0}
+		default:
+			return []HalNode{}, newCriticalHalError(fmt.Sprintf("unrecognised instruction: %q", instruction), lineNumber)
 		}
 	}
 
 	if currentLoopId != 0 {
-		return []HalNode{}, NewCriticalHalError("loop was not closed", loopStartIndexes[currentLoopId]+1)
+		return []HalNode{}, newCriticalHalError("loop was not closed", loopStartIndexes[currentLoopId]+1)
 	}
 
 	return ast, nil

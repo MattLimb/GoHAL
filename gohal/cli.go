@@ -7,15 +7,14 @@ import (
 )
 
 type CliArgs struct {
-	FileName string
-	DebugMode bool
-	ShowVersion bool
+	fileName    string
+	debugMode   bool
+	showVersion bool
 }
-
 
 func parseCli() (CliArgs, *HalError) {
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, "Usage: gohal [flags] [filename]\n\nArguments:\n  filename  The script file you want HAL to execute.\n\nFlags:")
+		fmt.Println("Usage: gohal [flags] [filename]\n\nArguments:\n  filename  The script file you want HAL to execute.\n\nFlags:")
 		flag.PrintDefaults()
 	}
 
@@ -38,8 +37,8 @@ func parseCli() (CliArgs, *HalError) {
 	case 1:
 		filename = args[0]
 	default:
-		return CliArgs{}, NewCriticalHalError("too many files to process. Only 1 is expected.", 0)
+		return CliArgs{}, newCriticalHalError("too many files to process. Only 1 is expected.", 0)
 	}
 
-	return CliArgs{FileName: filename, DebugMode: debugFlag, ShowVersion: versionFlag}, nil
+	return CliArgs{fileName: filename, debugMode: debugFlag, showVersion: versionFlag}, nil
 }

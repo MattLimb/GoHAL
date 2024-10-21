@@ -58,7 +58,7 @@ func interpretAst(ast HalAst, display HalDisplay) {
             _, err := fmt.Scan(&inputString)
 
             if err != nil {
-                display.displayError(NewHalError("no character inputted from user", currentIndex))
+                display.displayError(newHalError("no character inputted from user", currentIndex))
             }
 
             inputRune := []rune(inputString)[0]

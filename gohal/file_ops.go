@@ -11,7 +11,7 @@ func parseFile(fileName string) ([]string, *HalError) {
 
 	file, err := os.Open(fileName)
     if err != nil {
-		return output, NewCriticalHalError(fmt.Sprintf("cannot open specified program file %q", fileName), 0)
+		return output, newCriticalHalError(fmt.Sprintf("cannot open specified program file %q", fileName), 0)
     }
     defer file.Close()
 
@@ -22,7 +22,7 @@ func parseFile(fileName string) ([]string, *HalError) {
     }
 
     if err := scanner.Err(); err != nil {
-		return output, NewCriticalHalError(fmt.Sprintf("cannot read from program file %s", fileName), 0)
+		return output, newCriticalHalError(fmt.Sprintf("cannot read from program file %s", fileName), 0)
     }
 
 	return output, nil
