@@ -1,10 +1,9 @@
-// Package Main - GoHAL entrypoint.
-
+// Package Main - GoHAL Binary Entrypoint.
 package main
 
 import "gohal/gohal"
 
 // main entrypoint to HAL.
 func main() {
-	gohal.RunHal()
+	gohal.RunHalBinary()
 }

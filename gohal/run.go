@@ -7,27 +7,22 @@ import (
 )
 
 const Version string = "v1.1.0"
+var display HalDisplay = HalDisplay{debugMode: true}
 
-// RunHal is the public interface to run HAL. This currently assumes the CLI is wanted.
-func RunHal() {
-	display := HalDisplay{true}
 
-	cliArgs, err := parseCli()
-	if err != nil {
-		display.displayError(err)
-	}
-
-	if cliArgs.showVersion {
+// RunHal is the public interface to run HAL. This requires RunOptions to be passed in.
+func RunHal(runOpts RunOptions) {
+	if runOpts.showVersion {
 		fmt.Printf("GoHAL %s\n", Version)
 		os.Exit(0)
 	}
 
-	display.debugMode = cliArgs.debugMode
-	if cliArgs.fileName == "" {
+	display.debugMode = runOpts.debugMode
+	if runOpts.fileName == "" {
 		os.Exit(0)
 	}
 
-	inputFile, err := parseFile(cliArgs.fileName)
+	inputFile, err := parseFile(runOpts.fileName)
 	if err != nil {
 		display.displayError(err)
 		os.Exit(1)
@@ -40,4 +35,14 @@ func RunHal() {
 	}
 
 	interpretAst(ast, display)
+}
+
+// RunHalBinary is the public interface to run HAL. This parses the CLI and then runs hal.
+func RunHalBinary() {
+	runOpts, err := parseCli()
+	if err != nil {
+		display.displayError(err)
+	}
+
+	RunHal(runOpts)
 }

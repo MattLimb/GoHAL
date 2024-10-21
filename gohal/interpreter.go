@@ -50,7 +50,7 @@ func interpretAst(ast HalAst, display HalDisplay) {
             // Get the value of the current point
             // Maps return the int default value if the key doesn't exist.
             cellValue = tape[cellPointer]
-        // Display
+        // display
         case displayChar:
             display.displayCharInt(cellValue)
         // User Input
