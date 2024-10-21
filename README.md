@@ -8,3 +8,13 @@ If you have any feedback or improvements, feel free to write up an issue for the
 
 **This programming Language was written by *[PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow) on [EsoLangs.org](https://esolangs.org)`**
 
+## Running the Project
+
+This project is written in Google's GoLang. To build this project you'll nee
+
+1. Download and Install GoLang for your operating system: [https://go.dev/doc/install](https://go.dev/doc/install)
+2. From the current working directory: `go run gohal.go ./examples/hello_world.go`
+
+# Credits
+
+- [PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow) for creating `2001: An Esolang Odyssey` and implementing the "Hello World!" example.
