@@ -7,8 +7,8 @@ import (
 )
 
 const Version string = "v1.1.0"
-var display = HalDisplay{debugMode: true}
 
+var display = HalDisplay{debugMode: true}
 
 // RunHal is the public interface to run HAL. This requires RunOptions to be passed in.
 func RunHal(runOpts RunOptions) {

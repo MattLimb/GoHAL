@@ -4,7 +4,7 @@ package gohal
 
 import (
 	"fmt"
-    "regexp"
+	"regexp"
 	"strings"
 )
 
@@ -15,16 +15,16 @@ type HalInstruction string
 const (
 	incrementCell HalInstruction = "increment_cell"
 	decrementCell HalInstruction = "decrement_cell"
-	loopStart HalInstruction = "loop_start"
-	loopEnd HalInstruction = "loop_end"
-	loopBreak HalInstruction = "loop_break"
-	loopBreakAll HalInstruction = "loop_break_all"
-	shiftLeft HalInstruction = "shift_left"
-	shiftRight HalInstruction = "shift_right"
-	userInput HalInstruction = "user_input"
-	displayChar HalInstruction = "display_char"
-	programStart HalInstruction = "program_start"
-	programEnd HalInstruction = "program_end"
+	loopStart     HalInstruction = "loop_start"
+	loopEnd       HalInstruction = "loop_end"
+	loopBreak     HalInstruction = "loop_break"
+	loopBreakAll  HalInstruction = "loop_break_all"
+	shiftLeft     HalInstruction = "shift_left"
+	shiftRight    HalInstruction = "shift_right"
+	userInput     HalInstruction = "user_input"
+	displayChar   HalInstruction = "display_char"
+	programStart  HalInstruction = "program_start"
+	programEnd    HalInstruction = "program_end"
 )
 
 // HalNode is a struct to encode functionality in an easier way.
@@ -33,7 +33,7 @@ type HalNode struct {
 	instruction HalInstruction
 	n           int32
 	loopStart   int
-	loopEnd		int
+	loopEnd     int
 }
 
 // HalAst is a descriptive type to refer to a collection of HalNodes.
@@ -57,7 +57,6 @@ func buildAst(fileLines []string) (HalAst, *HalError) {
 
 	for idx, instruction := range fileLines {
 		lineNumber = idx + 1
-
 		switch {
 		// The Program MUST have a specified start phrase.
 		case idx == 0:
@@ -75,13 +74,13 @@ func buildAst(fileLines []string) (HalAst, *HalError) {
 
 		// Increment & Decrement Operators
 		case strings.Contains(instruction, "Hal?"):
-			ast[idx] =  HalNode{instruction: incrementCell, n: int32(strings.Count(instruction, "Hal!")), loopStart: 0, loopEnd: 0}
+			ast[idx] = HalNode{instruction: incrementCell, n: int32(strings.Count(instruction, "Hal!")), loopStart: 0, loopEnd: 0}
 		case strings.Contains(instruction, "I'm afraid. I'm afraid, Dave. Dave, my mind is going."):
 			ast[idx] = HalNode{instruction: decrementCell, n: int32(strings.Count(instruction, "I can feel it.")), loopStart: 0, loopEnd: 0}
 
 		// Looping Section
 
-		case instruction ==  "What are you doing, Dave?":
+		case instruction == "What are you doing, Dave?":
 			currentLoopId++
 			loopStartIndexes[currentLoopId] = idx
 
