@@ -11,7 +11,7 @@ If you have any feedback or improvements, feel free to write up an issue for the
 > This project provides NO WARRANTY for usage. USE AT YOUR OWN RISK.
 
 > [!NOTE]
-> This programming Language was written by *[PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow) on [EsoLangs.org](https://esolangs.org)`
+> This programming Language was written by [PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow) on [EsoLangs.org](https://esolangs.org)
 
 
 ## Running the Project
