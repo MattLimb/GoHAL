@@ -4,7 +4,6 @@ package gohal
 import (
     "flag"
     "fmt"
-    "os"
 )
 
 // CliArgs is a struct which exposes all options availiable in the CLI.
