@@ -1,19 +1,26 @@
 package gohal
 
-import "fmt"
+import (
+    "fmt"
+    "os"
+)
 
 type HalDisplay struct {
-	LogLevel int
+	debugMode bool
 }
 
-func  (hd HalDisplay) DisplayError(err error) {
-	if hd.LogLevel == 0 {
-		fmt.Println("I'm sorry Dave, I'm afraid I can't do that.")
-	} else {
-		fmt.Printf("I'm sorry Dave, I'm afraid I can't do that. (%s)\n", err.Error())
-	}
+func  (hd HalDisplay) displayError(err *HalError) {
+    if hd.debugMode {
+        fmt.Printf("I'm sorry Dave, I'm afraid I can't do that.\n  -> Line: %d\n  -> HAL %s\n", err.lineNum, err.Error())
+    } else {
+        fmt.Println("I'm sorry Dave, I'm afraid I can't do that.")
+    }
+
+    if err.mustEnd {
+        os.Exit(1)
+    }
 }
 
-func (hd HalDisplay) DisplayCharInt(charInt int32) {
+func (hd HalDisplay) displayCharInt(charInt int32) {
 	fmt.Printf("%s", string(charInt))
 }

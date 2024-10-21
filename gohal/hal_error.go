@@ -3,18 +3,19 @@ package gohal
 import "errors"
 
 type HalError struct {
-	MustEnd bool
-	Err     error
+	mustEnd bool
+	lineNum int
+	err     error
 }
 
 func (e HalError) Error() string {
-	return e.Err.Error()
+	return e.err.Error()
 }
 
-func NewHalError(errString string) HalError {
-	return HalError{MustEnd: false, Err: errors.New(errString)}
+func NewHalError(errString string, lineNumber int) *HalError {
+	return &HalError{mustEnd: false, lineNum: lineNumber, err: errors.New(errString)}
 }
 
-func NewCriticalHalError(errString string) HalError {
-	return HalError{MustEnd: true, Err: errors.New(errString)}
+func NewCriticalHalError(errString string, lineNumber int) *HalError {
+	return &HalError{mustEnd: true, lineNum: lineNumber, err: errors.New(errString)}
 }

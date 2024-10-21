@@ -1,8 +1,11 @@
 package gohal
 
-import "fmt"
+import (
+    "fmt"
+    "os"
+)
 
-func InterpretAst(ast HalAst, display HalDisplay) {
+func interpretAst(ast HalAst, display HalDisplay) {
     var instruction HalNode
 
     instructionLen := len(ast)
@@ -22,7 +25,7 @@ func InterpretAst(ast HalAst, display HalDisplay) {
         }
         instruction = ast[currentIndex]
 
-        switch instruction.Instruction {
+        switch instruction.instruction {
         // Tape Value Operations
         case incrementCell:
             cellValue += instruction.n
@@ -47,7 +50,7 @@ func InterpretAst(ast HalAst, display HalDisplay) {
             cellValue = tape[cellPointer]
         // Display
         case displayChar:
-            display.DisplayCharInt(cellValue)
+            display.displayCharInt(cellValue)
         // User Input
         case userInput:
             var inputString string
@@ -55,7 +58,7 @@ func InterpretAst(ast HalAst, display HalDisplay) {
             _, err := fmt.Scan(&inputString)
 
             if err != nil {
-                display.DisplayError(NewHalError("no character inputted from user"))
+                display.displayError(NewHalError("no character inputted from user", currentIndex))
             }
 
             inputRune := []rune(inputString)[0]
@@ -85,7 +88,7 @@ func InterpretAst(ast HalAst, display HalDisplay) {
                 currentIndex++
                 instruction = ast[currentIndex]
 
-                if instruction.Instruction == loopEnd {
+                if instruction.instruction == loopEnd {
                     loopDepth--
                 }
             }
@@ -106,10 +109,12 @@ func InterpretAst(ast HalAst, display HalDisplay) {
                 currentIndex++
                 instruction = ast[currentIndex]
 
-                if instruction.Instruction == loopEnd {
+                if instruction.instruction == loopEnd {
                     loopDepth--
                 }
             }
+        case programEnd:
+            os.Exit(0)
         }
 
         // Write the current value to the tape
