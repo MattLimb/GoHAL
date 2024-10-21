@@ -1,3 +1,4 @@
+// Package gohal/run - Entrypoint for the GoHAL program.
 package gohal
 
 import (
@@ -7,10 +8,13 @@ import (
 
 const Version string = "v1.1.0"
 
+// RunHal is the public interface to run HAL. This currently assumes the CLI is wanted.
 func RunHal() {
+	display := HalDisplay{true}
+
 	cliArgs, err := parseCli()
 	if err != nil {
-		HalDisplay{debugMode: true}.displayError(err)
+		display.displayError(err)
 	}
 
 	if cliArgs.showVersion {
@@ -18,7 +22,7 @@ func RunHal() {
 		os.Exit(0)
 	}
 
-	display := HalDisplay{debugMode: cliArgs.debugMode}
+	display.debugMode = cliArgs.debugMode
 	if cliArgs.fileName == "" {
 		os.Exit(0)
 	}

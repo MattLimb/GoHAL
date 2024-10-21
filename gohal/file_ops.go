@@ -1,3 +1,4 @@
+// Package gohal/file_ops - A way to appropriately read a file and present it in the way HAL expects it.
 package gohal
 
 import (
@@ -6,6 +7,7 @@ import (
 	"os"
 )
 
+// parseFile is a function which reads in a file line by line.
 func parseFile(fileName string) ([]string, *HalError) {
     var output []string
 

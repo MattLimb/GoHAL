@@ -1,3 +1,4 @@
+// Package gohal/interpreter - Core interpreter loop.
 package gohal
 
 import (
@@ -5,6 +6,7 @@ import (
     "os"
 )
 
+// interpretAst is the main HAL loop. It runs every instruction.
 func interpretAst(ast HalAst, display HalDisplay) {
     var instruction HalNode
 

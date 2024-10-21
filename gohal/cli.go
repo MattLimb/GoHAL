@@ -1,3 +1,4 @@
+// Package gohal/cli - Creates and handles the CLI input.
 package gohal
 
 import (
@@ -6,12 +7,14 @@ import (
     "os"
 )
 
+// CliArgs is a struct which exposes all options availiable in the CLI.
 type CliArgs struct {
 	fileName    string
 	debugMode   bool
 	showVersion bool
 }
 
+// parseCli is the function to setup and parse through the CLI.
 func parseCli() (CliArgs, *HalError) {
 	flag.Usage = func() {
 		fmt.Println("Usage: gohal [flags] [filename]\n\nArguments:\n  filename  The script file you want HAL to execute.\n\nFlags:")
