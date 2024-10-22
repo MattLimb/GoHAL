@@ -3,8 +3,8 @@ package gohal
 import "testing"
 
 type AstTestCase struct {
-	input []string
-	expected HalAst
+	input         []string
+	expected      HalAst
 	expectedError string
 }
 
@@ -28,75 +28,75 @@ var astPositiveTestCases = []AstTestCase{
 		expected: HalAst{
 			HalNode{
 				instruction: programStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: incrementCell,
-				n: 2,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           2,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: decrementCell,
-				n: 2,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           2,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 4,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     4,
 			},
 			HalNode{
 				instruction: loopEnd,
-				n: 0,
-				loopStart: 3,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   3,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: loopBreak,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: loopBreakAll,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: shiftLeft,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: shiftRight,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: userInput,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: displayChar,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: programEnd,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 		},
 		expectedError: "",
@@ -117,63 +117,62 @@ var astPositiveTestCases = []AstTestCase{
 		expected: HalAst{
 			HalNode{
 				instruction: programStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 7,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     7,
 			},
 			HalNode{
 				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 6,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     6,
 			},
 			HalNode{
 				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 5,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     5,
 			},
 			HalNode{
 				instruction: incrementCell,
-				n: 2,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           2,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: loopEnd,
-				n: 0,
-				loopStart: 3,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   3,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: loopEnd,
-				n: 0,
-				loopStart: 2,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   2,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: loopEnd,
-				n: 0,
-				loopStart: 1,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   1,
+				loopEnd:     0,
 			},
 			HalNode{
 				instruction: programEnd,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+				n:           0,
+				loopStart:   0,
+				loopEnd:     0,
 			},
 		},
 		expectedError: "",
 	},
 }
-
 
 func TestPositiveBuildAst(t *testing.T) {
 	for idx, test := range astPositiveTestCases {
@@ -205,7 +204,7 @@ var astNegativeTestCases = []AstTestCase{
 		input: []string{
 			"Good afternoon, gentlemen. I am a Hello World computer. I became operational at Testing Lane on October 21st, 2024.",
 		},
-		expected: HalAst{},
+		expected:      HalAst{},
 		expectedError: "program is too short. It must be at least 2 lines long.",
 	},
 	{
@@ -213,7 +212,7 @@ var astNegativeTestCases = []AstTestCase{
 			"Good afternoon, gentlemen. I am a Hello World computer. I became operational at Testing Lane on October 21st, 2024.",
 			"Hal? Hal!",
 		},
-		expected: HalAst{},
+		expected:      HalAst{},
 		expectedError: "program must end with 'Stop, Dave.' command",
 	},
 	// No Start String
@@ -222,7 +221,7 @@ var astNegativeTestCases = []AstTestCase{
 			"Hal? Hal! Hal!",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
+		expected:      HalAst{},
 		expectedError: "program must start with 'Good afternoon, gentlemen.' command",
 	},
 	// No Start Loop
@@ -232,7 +231,7 @@ var astNegativeTestCases = []AstTestCase{
 			"Dave, this conversation can serve no purpose anymore. Goodbye.",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
+		expected:      HalAst{},
 		expectedError: "program cannot end a loop without starting one",
 	},
 	// No End Loop
@@ -242,7 +241,7 @@ var astNegativeTestCases = []AstTestCase{
 			"What are you doing, Dave?",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
+		expected:      HalAst{},
 		expectedError: "loop was not closed",
 	},
 	// Unknown Instruction
@@ -252,7 +251,7 @@ var astNegativeTestCases = []AstTestCase{
 			"I'm sorry, Dave. I'm afraid I can't do that.",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
+		expected:      HalAst{},
 		expectedError: "unrecognised instruction: \"I'm sorry, Dave. I'm afraid I can't do that.\"",
 	},
 }
