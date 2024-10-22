@@ -47,7 +47,7 @@ func main() {
 	var lang internal.Languager
 
 	switch runOpts.Language {
-	case "lang2001":
+	case "2001":
 		lang = lang_2001.New(runOpts)
 	case "brainfuck":
 		lang = lang_brainfuck.New(runOpts)
