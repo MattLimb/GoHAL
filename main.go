@@ -7,6 +7,7 @@ import (
 
 	"github.com/MattLimb/GoHAL/internal"
 	lang_2001 "github.com/MattLimb/GoHAL/languages/lang2001"
+	"github.com/MattLimb/GoHAL/languages/lang_brainfuck"
 )
 
 const Version string = "v1.1.0"
@@ -44,21 +45,22 @@ func main() {
 	}
 
 	var lang internal.Languager
-	var ast internal.Ast
 
 	switch runOpts.Language {
 	case "lang2001":
 		lang = lang_2001.New(runOpts)
-
-		ast, err = lang.ParseFile()
-		if err != nil {
-			display.DisplayError(err)
-		}
+	case "brainfuck":
+		lang = lang_brainfuck.New(runOpts)
 	default:
 		display.DisplayError(internal.NewCriticalHalError(
 			fmt.Sprintf("unknown language: %q", runOpts.Language),
 			0,
 		))
+	}
+
+	ast, err := lang.ParseFile()
+	if err != nil {
+		display.DisplayError(err)
 	}
 
 	internal.InterpretAst(ast, map[int]int32{}, display)
