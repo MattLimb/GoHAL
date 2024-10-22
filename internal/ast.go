@@ -1,6 +1,6 @@
-// Package gohal_internal/ast - A Basic Abstract Syntax Tree for GoHAL.
+// Package internal/ast - A Basic Abstract Syntax Tree for GoHAL.
 // This file takes the user input file (as a []string) and parses out all variability into a standard format.
-package gohal_internal
+package internal
 
 // Instruction is a descriptive type to tag its usage as a command type.
 // They are used to tell HAL which instruction to run.

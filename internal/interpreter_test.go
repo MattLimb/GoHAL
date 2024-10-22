@@ -1,10 +1,8 @@
-package gohal
+package internal
 
 import (
 	"fmt"
 	"testing"
-
-	internal "github.com/MattLimb/GoHAL/gohal/internal"
 )
 
 type TapeValue struct {
@@ -18,7 +16,7 @@ type InterpreterTestCaseExpected struct {
 }
 
 type InterpreterTestCase struct {
-	input    internal.Ast
+	input    Ast
 	expected InterpreterTestCaseExpected
 }
 
@@ -28,7 +26,7 @@ type TestDisplay struct {
 	testObject         *testing.T
 }
 
-func (td TestDisplay) DisplayError(err *internal.HalError) {
+func (td TestDisplay) DisplayError(err *HalError) {
 	td.displayInvokations++
 
 	if err.Error() != td.displayExpected[td.displayInvokations-1] {
@@ -47,21 +45,21 @@ func (td TestDisplay) DisplayCharInt(charInt int32) {
 var interpreterPositiveTestCases = []InterpreterTestCase{
 	// Increment Cell
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           5,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -79,27 +77,27 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Decrement Cell
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           5,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           3,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -117,57 +115,57 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Loop Count To Ten
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           10,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     7,
 			},
 			{
-				Instruction: internal.ShiftRight,
+				Instruction: ShiftRight,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ShiftLeft,
+				Instruction: ShiftLeft,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -189,111 +187,111 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Display The Letter M
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           7,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     7,
 			},
 			{
-				Instruction: internal.ShiftRight,
+				Instruction: ShiftRight,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           10,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ShiftLeft,
+				Instruction: ShiftLeft,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           7,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     14,
 			},
 			{
-				Instruction: internal.ShiftRight,
+				Instruction: ShiftRight,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ShiftLeft,
+				Instruction: ShiftLeft,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   9,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ShiftRight,
+				Instruction: ShiftRight,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DisplayChar,
+				Instruction: DisplayChar,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -317,33 +315,33 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out ignored If not In Loop
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreak,
+				Instruction: LoopBreak,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -360,51 +358,51 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out of a Single Loop
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     6,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreak,
+				Instruction: LoopBreak,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -421,75 +419,75 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out of 2 loops a Single Loop
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     10,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     8,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreak,
+				Instruction: LoopBreak,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   4,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -506,99 +504,99 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out of 2 of 3 loops
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     14,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     12,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     10,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreak,
+				Instruction: LoopBreak,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   6,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   4,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -615,33 +613,33 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out all ignored if not in loop
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreakAll,
+				Instruction: LoopBreakAll,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -658,51 +656,51 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out of a Single Loop
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     6,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreakAll,
+				Instruction: LoopBreakAll,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -719,75 +717,75 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out of all loops a single loop
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     10,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     8,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreakAll,
+				Instruction: LoopBreakAll,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   4,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -804,99 +802,99 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 	},
 	// Break out all of 3 loops
 	{
-		input: []internal.Node{
+		input: []Node{
 			{
-				Instruction: internal.ProgramStart,
+				Instruction: ProgramStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     14,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     12,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopStart,
+				Instruction: LoopStart,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     10,
 			},
 			{
-				Instruction: internal.IncrementCell,
+				Instruction: IncrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopBreakAll,
+				Instruction: LoopBreakAll,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   6,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.DecrementCell,
+				Instruction: DecrementCell,
 				N:           1,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   4,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.LoopEnd,
+				Instruction: LoopEnd,
 				N:           0,
 				LoopStart:   2,
 				LoopEnd:     0,
 			},
 			{
-				Instruction: internal.ProgramEnd,
+				Instruction: ProgramEnd,
 				N:           0,
 				LoopStart:   0,
 				LoopEnd:     0,
@@ -918,7 +916,7 @@ func TestPositiveInterpretAst(t *testing.T) {
 		computedTape := map[int]int32{}
 		testDisplay := TestDisplay{displayInvokations: 0, displayExpected: test.expected.displayOrder, testObject: t}
 
-		interpretAst(test.input, computedTape, testDisplay)
+		InterpretAst(test.input, computedTape, testDisplay)
 
 		fmt.Printf("[%d] %+v\n", idx, computedTape)
 

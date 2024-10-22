@@ -3,7 +3,7 @@ package lang_2001
 import (
 	"testing"
 
-	internal "github.com/MattLimb/GoHAL/gohal/internal"
+	internal "github.com/MattLimb/GoHAL/internal"
 )
 
 type AstTestCase struct {
@@ -180,7 +180,7 @@ var astPositiveTestCases = []AstTestCase{
 
 func TestPositiveBuildAst(t *testing.T) {
 	for idx, test := range astPositiveTestCases {
-		computedAST, err := Parse2001Code(test.input)
+		computedAST, err := parse2001Code(test.input)
 
 		if err != nil {
 			t.Fatalf("[TestBuildAst] gohal_internal.Ast failed to parse input for test case %d.\n%s", idx, err.Error())
@@ -262,7 +262,7 @@ var astNegativeTestCases = []AstTestCase{
 
 func TestNegativeBuildAst(t *testing.T) {
 	for idx, test := range astNegativeTestCases {
-		_, err := Parse2001Code(test.input)
+		_, err := parse2001Code(test.input)
 
 		if err == nil {
 			t.Fatalf("[TestNegBuildAst] gohal_internal.Ast successfully parsed on Case %d", idx)

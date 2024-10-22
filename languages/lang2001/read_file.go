@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"os"
 
-	internal "github.com/MattLimb/GoHAL/gohal/internal"
+	internal "github.com/MattLimb/GoHAL/internal"
 )
 
 // parseFile is a function which reads in a file line by line.
-func ParseFile(fileName string) ([]string, *internal.HalError) {
+func parseFile(fileName string) ([]string, *internal.HalError) {
 	var output []string
 
 	file, err := os.Open(fileName)

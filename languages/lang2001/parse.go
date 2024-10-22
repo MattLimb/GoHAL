@@ -5,12 +5,12 @@ import (
 	"regexp"
 	"strings"
 
-	internal "github.com/MattLimb/GoHAL/gohal/internal"
+	internal "github.com/MattLimb/GoHAL/internal"
 )
 
-// Parse2001Code is the function which parses each line of a file, and processes it into an HalNode.
+// parse2001Code is the function which parses each line of a file, and processes it into an HalNode.
 // This function will return MustExit erros when it reaches a part of the syntax it cannot continue with.
-func Parse2001Code(fileLines []string) (internal.Ast, *internal.HalError) {
+func parse2001Code(fileLines []string) (internal.Ast, *internal.HalError) {
 	var lineNumber int
 	programLength := len(fileLines)
 
