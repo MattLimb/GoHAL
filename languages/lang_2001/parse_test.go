@@ -1,10 +1,14 @@
-package gohal
+package lang_2001
 
-import "testing"
+import (
+	"testing"
+
+	internal "github.com/MattLimb/GoHAL/internal"
+)
 
 type AstTestCase struct {
-	input []string
-	expected HalAst
+	input         []string
+	expected      internal.Ast
 	expectedError string
 }
 
@@ -25,78 +29,78 @@ var astPositiveTestCases = []AstTestCase{
 			"Close the pod bay doors, HAL.",
 			"Stop, Dave.",
 		},
-		expected: HalAst{
-			HalNode{
-				instruction: programStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+		expected: internal.Ast{
+			internal.Node{
+				Instruction: internal.ProgramStart,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: incrementCell,
-				n: 2,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.IncrementCell,
+				N:           2,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: decrementCell,
-				n: 2,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.DecrementCell,
+				N:           2,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 4,
+			internal.Node{
+				Instruction: internal.LoopStart,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     4,
 			},
-			HalNode{
-				instruction: loopEnd,
-				n: 0,
-				loopStart: 3,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.LoopEnd,
+				N:           0,
+				LoopStart:   3,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: loopBreak,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.LoopBreak,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: loopBreakAll,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.LoopBreakAll,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: shiftLeft,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.ShiftLeft,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: shiftRight,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.ShiftRight,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: userInput,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.UserInput,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: displayChar,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.DisplayChar,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: programEnd,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.ProgramEnd,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
 		},
 		expectedError: "",
@@ -114,73 +118,72 @@ var astPositiveTestCases = []AstTestCase{
 			"Dave, this conversation can serve no purpose anymore. Goodbye.", // [7] Loop 3 End [Start Loop: 1]
 			"Stop, Dave.",
 		},
-		expected: HalAst{
-			HalNode{
-				instruction: programStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+		expected: internal.Ast{
+			internal.Node{
+				Instruction: internal.ProgramStart,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 7,
+			internal.Node{
+				Instruction: internal.LoopStart,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     7,
 			},
-			HalNode{
-				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 6,
+			internal.Node{
+				Instruction: internal.LoopStart,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     6,
 			},
-			HalNode{
-				instruction: loopStart,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 5,
+			internal.Node{
+				Instruction: internal.LoopStart,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     5,
 			},
-			HalNode{
-				instruction: incrementCell,
-				n: 2,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.IncrementCell,
+				N:           2,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: loopEnd,
-				n: 0,
-				loopStart: 3,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.LoopEnd,
+				N:           0,
+				LoopStart:   3,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: loopEnd,
-				n: 0,
-				loopStart: 2,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.LoopEnd,
+				N:           0,
+				LoopStart:   2,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: loopEnd,
-				n: 0,
-				loopStart: 1,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.LoopEnd,
+				N:           0,
+				LoopStart:   1,
+				LoopEnd:     0,
 			},
-			HalNode{
-				instruction: programEnd,
-				n: 0,
-				loopStart: 0,
-				loopEnd: 0,
+			internal.Node{
+				Instruction: internal.ProgramEnd,
+				N:           0,
+				LoopStart:   0,
+				LoopEnd:     0,
 			},
 		},
 		expectedError: "",
 	},
 }
 
-
 func TestPositiveBuildAst(t *testing.T) {
 	for idx, test := range astPositiveTestCases {
-		computedAST, err := buildAst(test.input)
+		computedAST, err := parse2001Code(test.input)
 
 		if err != nil {
-			t.Fatalf("[TestBuildAst] AST failed to parse input for test case %d.\n%s", idx, err.Error())
+			t.Fatalf("[TestBuildAst] gohal_internal.Ast failed to parse input for test case %d.\n%s", idx, err.Error())
 		}
 
 		if len(computedAST) < len(test.expected) {
@@ -192,7 +195,7 @@ func TestPositiveBuildAst(t *testing.T) {
 		for nodeIdx, node := range computedAST {
 			expectedNode := test.expected[nodeIdx]
 
-			if node.instruction != expectedNode.instruction || node.n != expectedNode.n || node.loopStart != expectedNode.loopStart || node.loopEnd != expectedNode.loopEnd {
+			if node.Instruction != expectedNode.Instruction || node.N != expectedNode.N || node.LoopStart != expectedNode.LoopStart || node.LoopEnd != expectedNode.LoopEnd {
 				t.Fatalf("[TestBuildAst] BuildAST generated inconsistent command for program line %d.\nComputed: %+v\nExpected: %+v", nodeIdx+1, node, expectedNode)
 			}
 		}
@@ -205,7 +208,7 @@ var astNegativeTestCases = []AstTestCase{
 		input: []string{
 			"Good afternoon, gentlemen. I am a Hello World computer. I became operational at Testing Lane on October 21st, 2024.",
 		},
-		expected: HalAst{},
+		expected:      internal.Ast{},
 		expectedError: "program is too short. It must be at least 2 lines long.",
 	},
 	{
@@ -213,7 +216,7 @@ var astNegativeTestCases = []AstTestCase{
 			"Good afternoon, gentlemen. I am a Hello World computer. I became operational at Testing Lane on October 21st, 2024.",
 			"Hal? Hal!",
 		},
-		expected: HalAst{},
+		expected:      internal.Ast{},
 		expectedError: "program must end with 'Stop, Dave.' command",
 	},
 	// No Start String
@@ -222,7 +225,7 @@ var astNegativeTestCases = []AstTestCase{
 			"Hal? Hal! Hal!",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
+		expected:      internal.Ast{},
 		expectedError: "program must start with 'Good afternoon, gentlemen.' command",
 	},
 	// No Start Loop
@@ -232,7 +235,7 @@ var astNegativeTestCases = []AstTestCase{
 			"Dave, this conversation can serve no purpose anymore. Goodbye.",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
+		expected:      internal.Ast{},
 		expectedError: "program cannot end a loop without starting one",
 	},
 	// No End Loop
@@ -242,7 +245,7 @@ var astNegativeTestCases = []AstTestCase{
 			"What are you doing, Dave?",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
+		expected:      internal.Ast{},
 		expectedError: "loop was not closed",
 	},
 	// Unknown Instruction
@@ -252,21 +255,21 @@ var astNegativeTestCases = []AstTestCase{
 			"I'm sorry, Dave. I'm afraid I can't do that.",
 			"Stop, Dave.",
 		},
-		expected: HalAst{},
-		expectedError: "unrecognised instruction: \"I'm sorry, Dave. I'm afraid I can't do that.\"",
+		expected:      internal.Ast{},
+		expectedError: "unrecognised Instruction: \"I'm sorry, Dave. I'm afraid I can't do that.\"",
 	},
 }
 
 func TestNegativeBuildAst(t *testing.T) {
 	for idx, test := range astNegativeTestCases {
-		_, err := buildAst(test.input)
+		_, err := parse2001Code(test.input)
 
 		if err == nil {
-			t.Fatalf("[TestNegBuildAst] AST successfully parsed on Case %d", idx)
+			t.Fatalf("[TestNegBuildAst] gohal_internal.Ast successfully parsed on Case %d", idx)
 		}
 
 		if err.Error() != test.expectedError {
-			t.Fatalf("[TestNegBuildAst] AST produced the wrong error.\nError: %q\nErrEx: %q", err.Error(), test.expectedError)
+			t.Fatalf("[TestNegBuildAst] gohal_internal.Ast produced the wrong error.\nError: %q\nErrEx: %q", err.Error(), test.expectedError)
 		}
 	}
 }
