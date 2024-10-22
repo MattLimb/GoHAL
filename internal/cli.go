@@ -22,8 +22,8 @@ func ParseCli() (RunOptions, *HalError) {
 	}
 
 	var language string
-	flag.StringVar(&language, "language", "lang2001", "specify which language to try to parse and run.")
-	flag.StringVar(&language, "l", "lang2001", "specify which language to try to parse and run.")
+	flag.StringVar(&language, "language", "2001", "specify which language to try to parse and run.")
+	flag.StringVar(&language, "l", "2001", "specify which language to try to parse and run.")
 
 	var versionFlag bool
 	flag.BoolVar(&versionFlag, "version", false, "display the current version and exit.")
