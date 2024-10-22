@@ -1,7 +1,7 @@
 // Package Main - GoHAL Binary Entrypoint.
 package main
 
-import "gohal/gohal"
+import "github.com/MattLimb/GoHAL/gohal"
 
 // main entrypoint to HAL.
 func main() {

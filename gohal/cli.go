@@ -4,6 +4,8 @@ package gohal
 import (
 	"flag"
 	"fmt"
+
+	internal "github.com/MattLimb/GoHAL/gohal/internal"
 )
 
 // RunOptions is a struct which exposes all options availiable in the CLI.
@@ -14,7 +16,7 @@ type RunOptions struct {
 }
 
 // parseCli is the function to setup and parse through the CLI.
-func parseCli() (RunOptions, *HalError) {
+func parseCli() (RunOptions, *internal.HalError) {
 	flag.Usage = func() {
 		fmt.Println("Usage: gohal [flags] [filename]\n\nArguments:\n  filename  The script file you want HAL to execute.\n\nFlags:")
 		flag.PrintDefaults()
@@ -39,7 +41,7 @@ func parseCli() (RunOptions, *HalError) {
 	case 1:
 		filename = args[0]
 	default:
-		return RunOptions{}, newCriticalHalError("too many files to process. Only 1 is expected.", 0)
+		return RunOptions{}, internal.NewCriticalHalError("too many files to process. Only 1 is expected.", 0)
 	}
 
 	return RunOptions{fileName: filename, debugMode: debugFlag, showVersion: versionFlag}, nil

@@ -1,11 +1,15 @@
 // Package gohal/interpreter - Core interpreter loop.
 package gohal
 
-import "fmt"
+import (
+	"fmt"
+
+	internal "github.com/MattLimb/GoHAL/gohal/internal"
+)
 
 // interpretAst is the main HAL loop. It runs every instruction.
-func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
-	var instruction HalNode
+func interpretAst(ast internal.Ast, tape map[int]int32, display internal.HalDisplayer) {
+	var instruction internal.Node
 
 	instructionLen := len(ast)
 
@@ -24,14 +28,14 @@ func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
 		}
 		instruction = ast[currentIndex]
 
-		switch instruction.instruction {
+		switch instruction.Instruction {
 		// Tape Value Operations
-		case incrementCell:
-			cellValue += instruction.n
-		case decrementCell:
-			cellValue -= instruction.n
+		case internal.IncrementCell:
+			cellValue += instruction.N
+		case internal.DecrementCell:
+			cellValue -= instruction.N
 		// Tape Movement Operations
-		case shiftLeft:
+		case internal.ShiftLeft:
 			tape[cellPointer] = cellValue
 			cellValue = 0
 			cellPointer--
@@ -39,7 +43,7 @@ func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
 			// Get the value of the current point
 			// Maps return the int default value if the key doesn't exist.
 			cellValue = tape[cellPointer]
-		case shiftRight:
+		case internal.ShiftRight:
 			tape[cellPointer] = cellValue
 			cellValue = 0
 			cellPointer++
@@ -48,16 +52,16 @@ func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
 			// Maps return the int default value if the key doesn't exist.
 			cellValue = tape[cellPointer]
 		// display
-		case displayChar:
-			display.displayCharInt(cellValue)
+		case internal.DisplayChar:
+			display.DisplayCharInt(cellValue)
 		// User Input
-		case userInput:
+		case internal.UserInput:
 			var inputString string
 
 			_, err := fmt.Scan(&inputString)
 
 			if err != nil {
-				display.displayError(newHalError("no character inputted from user", currentIndex))
+				display.DisplayError(internal.NewHalError("no character inputted from user", currentIndex))
 			}
 
 			inputRune := []rune(inputString)[0]
@@ -65,20 +69,20 @@ func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
 			cellValue = inputRune
 
 		// Looping
-		case loopStart:
+		case internal.LoopStart:
 			if cellValue == 0 {
-				currentIndex = instruction.loopEnd
+				currentIndex = instruction.LoopEnd
 			} else {
 				loopDepth++
 			}
-		case loopEnd:
+		case internal.LoopEnd:
 			if cellValue != 0 {
-				currentIndex = instruction.loopStart
+				currentIndex = instruction.LoopStart
 			} else {
 				loopDepth--
 			}
 		// Loop Breaks
-		case loopBreakAll:
+		case internal.LoopBreakAll:
 			for {
 				if loopDepth == 0 {
 					break
@@ -87,11 +91,11 @@ func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
 				currentIndex++
 				instruction = ast[currentIndex]
 
-				if instruction.instruction == loopEnd {
+				if instruction.Instruction == internal.LoopEnd {
 					loopDepth--
 				}
 			}
-		case loopBreak:
+		case internal.LoopBreak:
 			expectedLoopEqual := loopDepth
 
 			if loopDepth >= 2 {
@@ -108,11 +112,11 @@ func interpretAst(ast HalAst, tape map[int]int32, display HalDisplayer) {
 				currentIndex++
 				instruction = ast[currentIndex]
 
-				if instruction.instruction == loopEnd {
+				if instruction.Instruction == internal.LoopEnd {
 					loopDepth--
 				}
 			}
-		case programEnd:
+		case internal.ProgramEnd:
 			endProgram = true
 		}
 

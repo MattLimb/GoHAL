@@ -1,6 +1,6 @@
-// Package gohal/display - A basic way to output Errors and Values to the Terminal
+// Package gohal_internal/display - A basic way to output Errors and Values to the Terminal
 // This functionality is a way to ensure that the appropriate error text is displayed, and that debugMode is handled appropriately.
-package gohal
+package gohal_internal
 
 import (
 	"fmt"
@@ -9,19 +9,19 @@ import (
 
 // HalDisplayer is an interface for Displays HAL supports. Mostly used for Testing
 type HalDisplayer interface {
-	displayError(err *HalError)
-	displayCharInt(charInt int32)
+	DisplayError(err *HalError)
+	DisplayCharInt(charInt int32)
 }
 
 // HalDisplay is a simple struct which governs how HAL will output data and errors.
 type HalDisplay struct {
-	debugMode bool
+	DebugMode bool
 }
 
-// displayError is a function will allows HalDisplay to appropriately emit errors.
+// DisplayError is a function will allows HalDisplay to appropriately emit errors.
 // when HalDisplay.debugMode = true it outputs additional information about the error. Primarilly where and what the error is.
-func (hd HalDisplay) displayError(err *HalError) {
-	if hd.debugMode {
+func (hd HalDisplay) DisplayError(err *HalError) {
+	if hd.DebugMode {
 		fmt.Printf("I'm sorry Dave, I'm afraid I can't do that.\n  -> Line: %d\n  -> HAL %s\n", err.lineNum, err.Error())
 	} else {
 		fmt.Println("I'm sorry Dave, I'm afraid I can't do that.")
@@ -32,8 +32,8 @@ func (hd HalDisplay) displayError(err *HalError) {
 	}
 }
 
-// displayCharInt is a function which converts integer (int32) into a Unicode character - then prints it to the terminal.
+// DisplayCharInt is a function which converts integer (int32) into a Unicode character - then prints it to the terminal.
 // This function does not emit a newline character after printing its input to the terminal.
-func (hd HalDisplay) displayCharInt(charInt int32) {
+func (hd HalDisplay) DisplayCharInt(charInt int32) {
 	fmt.Printf("%s", string(charInt))
 }

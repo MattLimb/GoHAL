@@ -4,11 +4,14 @@ package gohal
 import (
 	"fmt"
 	"os"
+
+	gohal_internal "github.com/MattLimb/GoHAL/gohal/internal"
+	lang_2001 "github.com/MattLimb/GoHAL/gohal/languages/lang2001"
 )
 
 const Version string = "v1.1.0"
 
-var display = HalDisplay{debugMode: true}
+var display = gohal_internal.HalDisplay{DebugMode: true}
 
 // RunHal is the public interface to run HAL. This requires RunOptions to be passed in.
 func RunHal(runOpts RunOptions) {
@@ -17,20 +20,20 @@ func RunHal(runOpts RunOptions) {
 		os.Exit(0)
 	}
 
-	display.debugMode = runOpts.debugMode
+	display.DebugMode = runOpts.debugMode
 	if runOpts.fileName == "" {
 		os.Exit(0)
 	}
 
-	inputFile, err := parseFile(runOpts.fileName)
+	inputFile, err := lang_2001.ParseFile(runOpts.fileName)
 	if err != nil {
-		display.displayError(err)
+		display.DisplayError(err)
 		os.Exit(1)
 	}
 
-	ast, err := buildAst(inputFile)
+	ast, err := lang_2001.Parse2001Code(inputFile)
 	if err != nil {
-		display.displayError(err)
+		display.DisplayError(err)
 		os.Exit(1)
 	}
 
@@ -41,7 +44,7 @@ func RunHal(runOpts RunOptions) {
 func RunHalBinary() {
 	runOpts, err := parseCli()
 	if err != nil {
-		display.displayError(err)
+		display.DisplayError(err)
 	}
 
 	RunHal(runOpts)

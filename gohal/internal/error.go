@@ -1,5 +1,5 @@
-// Package gohal/hal_error - Error handles for HAL.
-package gohal
+// Package gohal_internal/error - Error handles for HAL.
+package gohal_internal
 
 import "errors"
 
@@ -15,12 +15,12 @@ func (e HalError) Error() string {
 	return e.err.Error()
 }
 
-// newHalError creates a HalError which HAL can ignore.
-func newHalError(errString string, lineNumber int) *HalError {
+// NewHalError creates a HalError which HAL can ignore.
+func NewHalError(errString string, lineNumber int) *HalError {
 	return &HalError{mustEnd: false, lineNum: lineNumber, err: errors.New(errString)}
 }
 
-// newCriticalHalErro creates a HalError which HAL cannot ignore.
-func newCriticalHalError(errString string, lineNumber int) *HalError {
+// NewCriticalHalError creates a HalError which HAL cannot ignore.
+func NewCriticalHalError(errString string, lineNumber int) *HalError {
 	return &HalError{mustEnd: true, lineNum: lineNumber, err: errors.New(errString)}
 }

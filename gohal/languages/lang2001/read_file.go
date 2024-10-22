@@ -1,19 +1,21 @@
-// Package gohal/file_ops - A way to appropriately read a file and present it in the way HAL expects it.
-package gohal
+// Package lang_2001/read_file - A way to appropriately read a file and present it in the way HAL expects it.
+package lang_2001
 
 import (
 	"bufio"
 	"fmt"
 	"os"
+
+	internal "github.com/MattLimb/GoHAL/gohal/internal"
 )
 
 // parseFile is a function which reads in a file line by line.
-func parseFile(fileName string) ([]string, *HalError) {
+func ParseFile(fileName string) ([]string, *internal.HalError) {
 	var output []string
 
 	file, err := os.Open(fileName)
 	if err != nil {
-		return output, newCriticalHalError(fmt.Sprintf("cannot open specified program file %q", fileName), 0)
+		return output, internal.NewCriticalHalError(fmt.Sprintf("cannot open specified program file %q", fileName), 0)
 	}
 	defer file.Close()
 
@@ -28,7 +30,7 @@ func parseFile(fileName string) ([]string, *HalError) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		return output, newCriticalHalError(fmt.Sprintf("cannot read from program file %s", fileName), 0)
+		return output, internal.NewCriticalHalError(fmt.Sprintf("cannot read from program file %s", fileName), 0)
 	}
 
 	return output, nil
