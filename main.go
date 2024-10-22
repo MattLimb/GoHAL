@@ -6,11 +6,11 @@ import (
 	"os"
 
 	"github.com/MattLimb/GoHAL/internal"
-	lang_2001 "github.com/MattLimb/GoHAL/languages/lang2001"
+	"github.com/MattLimb/GoHAL/languages/lang_2001"
 	"github.com/MattLimb/GoHAL/languages/lang_brainfuck"
 )
 
-const Version string = "v1.1.0"
+const Version string = "v1.2.0"
 
 var display internal.Displayer = internal.BasicDisplay{DebugMode: true}
 

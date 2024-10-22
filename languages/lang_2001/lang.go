@@ -12,6 +12,12 @@ func New(runOpts internal.RunOptions) Lang2001 {
 	return Lang2001{runOpts: runOpts}
 }
 
+// type Languager interface {
+// 	ParseFile(fileName string) (Ast, HalError)
+// 	ParseString(raw string) (Ast, HalError)
+// 	Display() Displayer
+// }
+
 func (l Lang2001) ParseFile() (internal.Ast, *internal.HalError) {
 	file_output, err := parseFile(l.runOpts.FileName)
 
