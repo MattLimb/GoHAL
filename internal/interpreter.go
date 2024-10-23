@@ -3,8 +3,11 @@ package internal
 
 import "fmt"
 
+const LoopMaxIteration int = 10_000
+
 // InterpretAst is the main HAL loop. It runs every instruction.
-func InterpretAst(ast Ast, tape map[int]int32, display Displayer) {
+func InterpretAst(ast Ast, tape map[int]int32, display Displayer) *HalError {
+	var ranInstructionsInLoop int
 	var instruction Node
 
 	instructionLen := len(ast)
@@ -21,6 +24,10 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) {
 	for {
 		if currentIndex == instructionLen || endProgram {
 			break
+		}
+
+		if ranInstructionsInLoop >= LoopMaxIteration {
+			return NewCriticalHalError("loop max iteration exceeded", currentIndex)
 		}
 		instruction = ast[currentIndex]
 
@@ -70,12 +77,14 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) {
 				currentIndex = instruction.LoopEnd
 			} else {
 				loopDepth++
+				ranInstructionsInLoop = 0
 			}
 		case LoopEnd:
 			if cellValue != 0 {
 				currentIndex = instruction.LoopStart
 			} else {
 				loopDepth--
+				ranInstructionsInLoop = 0
 			}
 		// Loop Breaks
 		case LoopBreakAll:
@@ -91,6 +100,8 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) {
 					loopDepth--
 				}
 			}
+
+			ranInstructionsInLoop = 0
 		case LoopBreak:
 			expectedLoopEqual := loopDepth
 
@@ -112,6 +123,7 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) {
 					loopDepth--
 				}
 			}
+			ranInstructionsInLoop = 0
 		case ProgramEnd:
 			endProgram = true
 		}
@@ -122,5 +134,12 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) {
 		// Step through the instructions
 		currentIndex++
 		tasksCompleted++
+
+		// Up the number of instructions run
+		if loopDepth > 0 {
+			ranInstructionsInLoop++
+		}
 	}
+
+	return nil
 }

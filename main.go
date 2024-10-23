@@ -41,7 +41,11 @@ func runCommand(runOpts internal.ProgOptions) *internal.HalError {
 		return err
 	}
 
-	internal.InterpretAst(ast, map[int]int32{}, lang.Display())
+	err = internal.InterpretAst(ast, map[int]int32{}, lang.Display())
+
+	if err != nil {
+		display.DisplayError(err)
+	}
 
 	return nil
 }
