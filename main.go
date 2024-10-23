@@ -10,7 +10,7 @@ import (
 	"github.com/MattLimb/GoHAL/languages/lang_brainfuck"
 )
 
-const Version string = "v1.2.0"
+const Version string = "v1.3.0"
 
 var display internal.Displayer = internal.BasicDisplay{DebugMode: true}
 
