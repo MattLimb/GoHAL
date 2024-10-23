@@ -263,7 +263,6 @@ var astNegativeTestCases = []AstTestCase{
 func TestNegativeBuildAst(t *testing.T) {
 	for idx, test := range astNegativeTestCases {
 		_, err := parse2001Code(test.input)
-
 		if err == nil {
 			t.Fatalf("[TestNegBuildAst] gohal_internal.Ast successfully parsed on Case %d", idx)
 		}
