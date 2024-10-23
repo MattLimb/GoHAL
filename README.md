@@ -1,12 +1,12 @@
 # GoHAL
 
-`GoHAL` is a new interpreter for (Esoteric)[https://esolangs.org] programming languages.
+`GoHAL` is a new interpreter for tape driven (Esoteric)[https://esolangs.org] programming languages.
 
 Currently, `GoHAL` supports: 
 
 - [`2001: An Esolang Odyssey`](https://esolangs.org/wiki/2001:_An_Esolang_Odyssey) - An Esoteric programming language based off of the book and film `2001: A Space Odyssey`. The programming language was created by [PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow). `GoHAL` was originally written for this language.
 - [`brainfuck`](https://esolangs.org/wiki/Brainfuck) - A well known and influencial esoteric programming language created by [Urban Müller](https://esolangs.org/wiki/Urban_M%C3%BCller)
-
+- [`morsefuck`](https://esolangs.org/wiki/Morsefuck) - An Esoteric programming language based off of the Morse Code Encoding Scheme, created by [Thoga31](https://esolangs.org/wiki/User:Thoga31)
 
 This is a toy project and was built for fun. If you run this and find bugs, please drop an issue, although be aware I might not be able to fix them in a timely mannar.
 
@@ -60,6 +60,7 @@ This table is to be used with the flags: `-l/--language` and `-o/--outputLanguag
 | :-------------: | :------: | :----------------: |
 | `2001`    | 2001: An Esolang Odyssey | `examples/2001` |
 | `brainfuck`    | brainfuck | `examples/brianfuck` |
+| `morsefuck` | morsefuck | `examples/morsefuck` |
 
 
 ## Running the Tests
@@ -72,3 +73,4 @@ This table is to be used with the flags: `-l/--language` and `-o/--outputLanguag
 
 - [PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow) for creating `2001: An Esolang Odyssey` and implementing the "Hello World!" example.
 - [Urban Müller](https://esolangs.org/wiki/Urban_M%C3%BCller) for creating `brainfuck`.
+- [Thoga31](https://esolangs.org/wiki/User:Thoga31) for creating Morsefuck.
