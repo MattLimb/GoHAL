@@ -6,14 +6,11 @@ import "fmt"
 const LoopMaxIteration int = 10_000
 
 // InterpretAst is the main HAL loop. It runs every instruction.
-func InterpretAst(ast Ast, tape map[int]int32, display Displayer) *HalError {
+func InterpretAst(ast Ast, tape Taper, display Displayer) *HalError {
 	var ranInstructionsInLoop int
 	var instruction Node
 
 	instructionLen := len(ast)
-
-	cellPointer := 0
-	var cellValue int32 = 0
 
 	loopDepth := 0
 	currentIndex := 0
@@ -34,29 +31,17 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) *HalError {
 		switch instruction.Instruction {
 		// Tape Value Operations
 		case IncrementCell:
-			cellValue += instruction.N
+			tape.IncrementCell(instruction.N)
 		case DecrementCell:
-			cellValue -= instruction.N
+			tape.DecrementCell(instruction.N)
 		// Tape Movement Operations
 		case ShiftLeft:
-			tape[cellPointer] = cellValue
-			cellValue = 0
-			cellPointer--
-
-			// Get the value of the current point
-			// Maps return the int default value if the key doesn't exist.
-			cellValue = tape[cellPointer]
+			tape.ShiftLeft()
 		case ShiftRight:
-			tape[cellPointer] = cellValue
-			cellValue = 0
-			cellPointer++
-
-			// Get the value of the current point
-			// Maps return the int default value if the key doesn't exist.
-			cellValue = tape[cellPointer]
+			tape.ShiftRight()
 		// display
 		case DisplayChar:
-			display.DisplayCharInt(cellValue)
+			display.DisplayCharInt(tape.ReturnCell())
 		// User Input
 		case UserInput:
 			var inputString string
@@ -69,10 +54,12 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) *HalError {
 
 			inputRune := []rune(inputString)[0]
 
-			cellValue = inputRune
+			tape.SetCell(int32(inputRune))
 
 		// Looping
 		case LoopStart:
+			cellValue := tape.ReturnCell()
+
 			if cellValue == 0 {
 				currentIndex = instruction.LoopEnd
 			} else {
@@ -80,6 +67,8 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) *HalError {
 				ranInstructionsInLoop = 0
 			}
 		case LoopEnd:
+			cellValue := tape.ReturnCell()
+
 			if cellValue != 0 {
 				currentIndex = instruction.LoopStart
 			} else {
@@ -127,10 +116,6 @@ func InterpretAst(ast Ast, tape map[int]int32, display Displayer) *HalError {
 		case ProgramEnd:
 			endProgram = true
 		}
-
-		// Write the current value to the tape
-		tape[cellPointer] = cellValue
-
 		// Step through the instructions
 		currentIndex++
 		tasksCompleted++

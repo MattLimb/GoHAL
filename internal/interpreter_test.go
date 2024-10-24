@@ -913,7 +913,7 @@ var interpreterPositiveTestCases = []InterpreterTestCase{
 
 func TestPositiveInterpretAst(t *testing.T) {
 	for idx, test := range interpreterPositiveTestCases {
-		computedTape := map[int]int32{}
+		computedTape := NewDefaultTape()
 		testDisplay := TestDisplay{displayInvokations: 0, displayExpected: test.expected.displayOrder, testObject: t}
 
 		InterpretAst(test.input, computedTape, testDisplay)
@@ -921,7 +921,7 @@ func TestPositiveInterpretAst(t *testing.T) {
 		fmt.Printf("[%d] %+v\n", idx, computedTape)
 
 		for _, kv := range test.expected.tape {
-			value, ok := computedTape[kv.key]
+			value, ok := computedTape.tape[kv.key]
 
 			if !ok {
 				t.Fatalf("[TestPositiveInterpretAst] Tape Value %d not found within Tape.", kv.key)

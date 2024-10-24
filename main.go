@@ -1,4 +1,4 @@
-// Package gohal/run - Entrypoint for the GoHAL program.
+// Package main - Entrypoint for the GoHAL program.
 package main
 
 import (
@@ -41,7 +41,8 @@ func runCommand(runOpts internal.ProgOptions) *internal.HalError {
 		return err
 	}
 
-	err = internal.InterpretAst(ast, map[int]int32{}, lang.Display())
+	// err = internal.InterpretAs t(ast, map[int]int32{}, lang.Display())
+	err = internal.InterpretAst(ast, lang.Tape(), lang.Display())
 
 	if err != nil {
 		display.DisplayError(err)

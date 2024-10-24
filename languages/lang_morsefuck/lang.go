@@ -48,3 +48,7 @@ func (l LangMorsefuck) CompileToFile(ast internal.Ast, outputFileName string) *i
 
 	return nil
 }
+
+func (l LangMorsefuck) Tape() internal.Taper {
+	return internal.NewDefaultTape()
+}
