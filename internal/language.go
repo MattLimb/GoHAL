@@ -7,4 +7,5 @@ type Languager interface {
 	ParseFile(filename string) (Ast, *HalError)
 	CompileToFile(ast Ast, outputFileName string) *HalError
 	Display() Displayer
+	Tape() Taper
 }

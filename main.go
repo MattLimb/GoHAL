@@ -1,4 +1,4 @@
-// Package gohal/run - Entrypoint for the GoHAL program.
+// Package main - Entrypoint for the GoHAL program.
 package main
 
 import (
@@ -7,11 +7,12 @@ import (
 
 	"github.com/MattLimb/GoHAL/internal"
 	"github.com/MattLimb/GoHAL/languages/lang_2001"
+	"github.com/MattLimb/GoHAL/languages/lang_brainalpha"
 	"github.com/MattLimb/GoHAL/languages/lang_brainfuck"
 	"github.com/MattLimb/GoHAL/languages/lang_morsefuck"
 )
 
-const Version string = "v1.4.2"
+const Version string = "v1.5.0"
 
 var display internal.Displayer = internal.BasicDisplay{DebugMode: true}
 
@@ -24,6 +25,8 @@ func language(langStr string, langOpts internal.LanguageOptions) (internal.Langu
 		return lang_brainfuck.New(langOpts), nil
 	case "morsefuck":
 		return lang_morsefuck.New(langOpts), nil
+	case "brainalpha":
+		return lang_brainalpha.New(langOpts), nil
 	default:
 		return nil, internal.NewCriticalHalError(fmt.Sprintf("unrecognised language: %q", langStr), 0)
 	}
@@ -41,7 +44,8 @@ func runCommand(runOpts internal.ProgOptions) *internal.HalError {
 		return err
 	}
 
-	err = internal.InterpretAst(ast, map[int]int32{}, lang.Display())
+	// err = internal.InterpretAs t(ast, map[int]int32{}, lang.Display())
+	err = internal.InterpretAst(ast, lang.Tape(), lang.Display())
 
 	if err != nil {
 		display.DisplayError(err)

@@ -48,3 +48,7 @@ func (l LangBrainfuck) CompileToFile(ast internal.Ast, outputFileName string) *i
 
 	return nil
 }
+
+func (l LangBrainfuck) Tape() internal.Taper {
+	return internal.NewDefaultTape()
+}

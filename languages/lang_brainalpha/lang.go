@@ -1,4 +1,4 @@
-package lang_morsefuck
+package lang_brainalpha
 
 import (
 	"fmt"
@@ -7,28 +7,28 @@ import (
 	"github.com/MattLimb/GoHAL/internal"
 )
 
-type LangMorsefuck struct {
+type LangBrainalpha struct {
 	langOpts internal.LanguageOptions
 }
 
-func New(langOpts internal.LanguageOptions) LangMorsefuck {
-	return LangMorsefuck{langOpts: langOpts}
+func New(langOpts internal.LanguageOptions) LangBrainalpha {
+	return LangBrainalpha{langOpts: langOpts}
 }
 
-func (l LangMorsefuck) ParseFile(fileName string) (internal.Ast, *internal.HalError) {
+func (l LangBrainalpha) ParseFile(fileName string) (internal.Ast, *internal.HalError) {
 	rawInput, err := parseFile(fileName)
 	if err != nil {
 		return internal.Ast{}, err
 	}
 
-	return parseMorsefuckCode(rawInput)
+	return parseBrainfuckCode(rawInput)
 }
 
-func (l LangMorsefuck) Display() internal.Displayer {
+func (l LangBrainalpha) Display() internal.Displayer {
 	return internal.BasicDisplay{DebugMode: l.langOpts.DebugMode}
 }
 
-func (l LangMorsefuck) CompileToFile(ast internal.Ast, outputFileName string) *internal.HalError {
+func (l LangBrainalpha) CompileToFile(ast internal.Ast, outputFileName string) *internal.HalError {
 	compiled, err := compileAst(ast)
 	if err != nil {
 		return err
@@ -49,6 +49,6 @@ func (l LangMorsefuck) CompileToFile(ast internal.Ast, outputFileName string) *i
 	return nil
 }
 
-func (l LangMorsefuck) Tape() internal.Taper {
-	return internal.NewDefaultTape()
+func (l LangBrainalpha) Tape() internal.Taper {
+	return NewBrainalphaTape()
 }

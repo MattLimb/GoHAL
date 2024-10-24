@@ -49,3 +49,7 @@ func (l Lang2001) CompileToFile(ast internal.Ast, outputFileName string) *intern
 
 	return nil
 }
+
+func (l Lang2001) Tape() internal.Taper {
+	return internal.NewDefaultTape()
+}
