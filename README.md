@@ -2,16 +2,16 @@
 
 `GoHAL` is a new interpreter for tape driven [Esoteric](https://esolangs.org) programming languages.
 
-Currently, `GoHAL` supports: 
+Currently, `GoHAL` supports:
 
 - [`2001: An Esolang Odyssey`](https://esolangs.org/wiki/2001:_An_Esolang_Odyssey) - An Esoteric programming language based off of the book and film `2001: A Space Odyssey`. The programming language was created by [PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow). `GoHAL` was originally written for this language.
 - [`brainfuck`](https://esolangs.org/wiki/Brainfuck) - A well known and influencial esoteric programming language created by [Urban Müller](https://esolangs.org/wiki/Urban_M%C3%BCller)
 - [`morsefuck`](https://esolangs.org/wiki/Morsefuck) - An Esoteric programming language based off of the Morse Code Encoding Scheme, created by [Thoga31](https://esolangs.org/wiki/User:Thoga31)
+- [`brainalpha`](https://esolangs.org/wiki/Brainalpha) - A `brainfuck` derivitive based off of Capital Letters (Ascii 65-90). Created by [None1](https://esolangs.org/wiki/User:None1)
 
 This is a toy project and was built for fun. If you run this and find bugs, please drop an issue, although be aware I might not be able to fix them in a timely mannar.
 
 If you have any feedback or improvements or want to contribute, feel free to write up an issue for them or submit a PR. I'm learning here, so any thoughts are appreicated.
-
 
 > [!CAUTION]
 > This project provides NO WARRANTY for usage. USE AT YOUR OWN RISK.
@@ -49,28 +49,28 @@ Flags:
         specify which language to try to parse and run. (default "brainfuck")
   -v    display the current version and exit.
   -version
-        display the current version and exit. 
+        display the current version and exit.
 ```
 
 ### Available Esoteric Languages
 
 This table is to be used with the flags: `-l/--language` and `-o/--outputLanguage`
 
-| Language String | Language | Examples Directory |
-| :-------------: | :------: | :----------------: |
-| `2001`    | 2001: An Esolang Odyssey | `examples/2001` |
-| `brainfuck`    | brainfuck | `examples/brianfuck` |
-| `morsefuck` | morsefuck | `examples/morsefuck` |
-
+| Language String |         Language         |  Examples Directory   | Compatiable With Others |
+| :-------------: | :----------------------: | :-------------------: | :---------------------: |
+|     `2001`      | 2001: An Esolang Odyssey |    `examples/2001`    |           Yes           |
+|   `brainfuck`   |        brainfuck         | `examples/brianfuck`  |           Yes           |
+|   `morsefuck`   |        morsefuck         | `examples/morsefuck`  |           Yes           |
+|  `brainalpha`   |        brainalpha        | `examples/brainalpha` |           No            |
 
 ## Running the Tests
 
 1. Ensure GoLang is installed for your operating system: [https://go.dev/doc/install](https://go.dev/doc/install)
 2. `go test ./internal ./languages/lang_2001 ./languages/lang_brainfuck`
 
-
 # Credits
 
 - [PythonshellDebugwindow](https://esolangs.org/wiki/User:PythonshellDebugwindow) for creating `2001: An Esolang Odyssey` and implementing the "Hello World!" example.
 - [Urban Müller](https://esolangs.org/wiki/Urban_M%C3%BCller) for creating `brainfuck`.
-- [Thoga31](https://esolangs.org/wiki/User:Thoga31) for creating Morsefuck.
+- [Thoga31](https://esolangs.org/wiki/User:Thoga31) for creating `morsefuck`.
+- [None1](https://esolangs.org/wiki/User:None1) for creatig `brainalpha`

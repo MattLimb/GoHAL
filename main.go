@@ -7,6 +7,7 @@ import (
 
 	"github.com/MattLimb/GoHAL/internal"
 	"github.com/MattLimb/GoHAL/languages/lang_2001"
+	"github.com/MattLimb/GoHAL/languages/lang_brainalpha"
 	"github.com/MattLimb/GoHAL/languages/lang_brainfuck"
 	"github.com/MattLimb/GoHAL/languages/lang_morsefuck"
 )
@@ -24,6 +25,8 @@ func language(langStr string, langOpts internal.LanguageOptions) (internal.Langu
 		return lang_brainfuck.New(langOpts), nil
 	case "morsefuck":
 		return lang_morsefuck.New(langOpts), nil
+	case "brainalpha":
+		return lang_brainalpha.New(langOpts), nil
 	default:
 		return nil, internal.NewCriticalHalError(fmt.Sprintf("unrecognised language: %q", langStr), 0)
 	}

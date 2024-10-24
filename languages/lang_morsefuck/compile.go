@@ -39,9 +39,9 @@ func compileAst(ast internal.Ast) (string, *internal.HalError) {
 			outputAst += "-.-"
 		// Unproducable
 		case internal.LoopBreak:
-			return "", internal.NewCriticalHalError("brainfuck does not support Breaking Loops", 0)
+			return "", internal.NewCriticalHalError("morsefuck does not support Breaking Loops", 0)
 		case internal.LoopBreakAll:
-			return "", internal.NewCriticalHalError("brainfuck does not support Breaking Loops", 0)
+			return "", internal.NewCriticalHalError("morsefuck does not support Breaking Loops", 0)
 		}
 	}
 

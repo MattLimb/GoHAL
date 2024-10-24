@@ -39,6 +39,5 @@ func (t DefaultTape) SetCell(n int32) {
 }
 
 func (t DefaultTape) ReturnCell() int32 {
-	v, _ := t.tape[t.pointer]
-	return v
+	return t.tape[t.pointer]
 }
