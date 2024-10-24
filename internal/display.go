@@ -21,7 +21,7 @@ type BasicDisplay struct {
 // DisplayError is a function will allows HalDisplay to appropriately emit errors.
 // when HalDisplay.debugMode = true it outputs additional information about the error. Primarilly where and what the error is.
 func (bd BasicDisplay) DisplayError(err *HalError) {
-	fmt.Printf("ERROR: %s\n  -> Line: %d\n  -> HAL %s\n", err.Error(), err.LineNum, err.Error())
+	fmt.Printf("ERROR: %s\n  -> Line: %d\n  -> %s\n", err.Error(), err.LineNum, err.Error())
 
 	if err.MustEnd {
 		os.Exit(1)
