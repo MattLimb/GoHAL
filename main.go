@@ -12,7 +12,7 @@ import (
 	"github.com/MattLimb/GoHAL/languages/lang_morsefuck"
 )
 
-const Version string = "v1.4.2"
+const Version string = "v1.5.0"
 
 var display internal.Displayer = internal.BasicDisplay{DebugMode: true}
 
