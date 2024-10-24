@@ -55,7 +55,9 @@ func ParseCli() (ProgOptions, *HalError) {
 	args := flag.Args()
 	numArgs := len(args)
 
-	if numArgs < 2 {
+	if versionFlag {
+		args = append(args, "version")
+	} else if numArgs < 2 {
 		return ProgOptions{}, NewCriticalHalError("too few arguments. Expected at least 2 arguments.", 0)
 	}
 
@@ -73,6 +75,7 @@ func ParseCli() (ProgOptions, *HalError) {
 
 		inputFilename = args[1]
 		outputFilename = args[2]
+	case "version":
 	default:
 		return ProgOptions{}, NewCriticalHalError(fmt.Sprintf("unreccognized command %q", args[0]), 0)
 	}
