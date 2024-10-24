@@ -1,6 +1,6 @@
 # GoHAL
 
-`GoHAL` is a new interpreter for tape driven (Esoteric)[https://esolangs.org] programming languages.
+`GoHAL` is a new interpreter for tape driven [Esoteric](https://esolangs.org) programming languages.
 
 Currently, `GoHAL` supports: 
 
